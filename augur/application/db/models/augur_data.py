@@ -1330,16 +1330,7 @@ class Commit(Base):
     cmt_ght_committed_at = Column(TIMESTAMP(precision=0))
     cmt_committer_timestamp = Column(TIMESTAMP(True, 0))
     cmt_author_timestamp = Column(TIMESTAMP(True, 0))
-    cmt_author_platform_username = Column(
-        ForeignKey(
-            "augur_data.contributors.cntrb_login",
-            name="fk_commits_contributors_3",
-            ondelete="CASCADE",
-            onupdate="CASCADE",
-            initially="DEFERRED",
-            deferrable=True,
-        )
-    )
+    cmt_author_platform_username = Column(String)
     tool_source = Column(String)
     tool_version = Column(String)
     data_source = Column(String)
