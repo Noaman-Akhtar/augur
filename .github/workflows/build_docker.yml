@@ -81,7 +81,7 @@ jobs:
           file: ./docker/database/Dockerfile
           build-args: VERSION=${{ steps.version.outputs.version }}
           platforms: linux/amd64
-          tags: ghcr.io/${{ github.repository_owner }}/augur_database:test
+          tags: ghcr.io/${{ toLower(github.repository_owner) }}/augur_database:test
           cache-from: type=gha,scope=container-database
           cache-to: type=gha,scope=container-database,mode=min
           load: true
@@ -93,7 +93,7 @@ jobs:
           file: ./docker/keyman/Dockerfile
           build-args: VERSION=${{ steps.version.outputs.version }}
           platforms: linux/amd64
-          tags: ghcr.io/${{ github.repository_owner }}/augur_keyman:test
+          tags: ghcr.io/${{ toLower(github.repository_owner) }}/augur_keyman:test
           cache-from: type=gha,scope=container-keyman
           cache-to: type=gha,scope=container-keyman,mode=min
           load: true
@@ -105,7 +105,7 @@ jobs:
           file: ./docker/rabbitmq/Dockerfile
           build-args: VERSION=${{ steps.version.outputs.version }}
           platforms: linux/amd64
-          tags: ghcr.io/${{ github.repository_owner }}/augur_rabbitmq:test
+          tags: ghcr.io/${{ toLower(github.repository_owner) }}/augur_rabbitmq:test
           cache-from: type=gha,scope=container-rabbitmq
           cache-to: type=gha,scope=container-rabbitmq,mode=min
           load: true
@@ -117,26 +117,26 @@ jobs:
           file: ./docker/backend/Dockerfile
           build-args: VERSION=${{ steps.version.outputs.version }}
           platforms: linux/amd64
-          tags: ghcr.io/${{ github.repository_owner }}/augur_backend:test
+          tags: ghcr.io/${{ toLower(github.repository_owner) }}/augur_backend:test
           cache-from: type=gha,scope=container-backend
           cache-to: type=gha,scope=container-backend,mode=min
           load: true
 
       - name: Prepare compose file
         run: |
-          yq eval -i '.services.augur.image = "ghcr.io/${{ github.repository_owner }}/augur_backend:test"' docker-compose.yml
+          yq eval -i '.services.augur.image = "ghcr.io/${{ toLower(github.repository_owner) }}/augur_backend:test"' docker-compose.yml
           yq eval -i '.services.augur.pull_policy = "never"' docker-compose.yml
           yq eval -i '.services.augur.restart = "no"' docker-compose.yml
 
-          yq eval -i '.services.augur-db.image = "ghcr.io/${{ github.repository_owner }}/augur_database:test"' docker-compose.yml
+          yq eval -i '.services.augur-db.image = "ghcr.io/${{ toLower(github.repository_owner) }}/augur_database:test"' docker-compose.yml
           yq eval -i '.services.augur-db.pull_policy = "never"' docker-compose.yml
           yq eval -i '.services.augur-db.restart = "no"' docker-compose.yml
 
-          yq eval -i '.services.augur-keyman.image = "ghcr.io/${{ github.repository_owner }}/augur_keyman:test"' docker-compose.yml
+          yq eval -i '.services.augur-keyman.image = "ghcr.io/${{ toLower(github.repository_owner) }}/augur_keyman:test"' docker-compose.yml
           yq eval -i '.services.augur-keyman.pull_policy = "never"' docker-compose.yml
           yq eval -i '.services.augur-keyman.restart = "no"' docker-compose.yml
 
-          yq eval -i '.services.rabbitmq.image = "ghcr.io/${{ github.repository_owner }}/augur_rabbitmq:test"' docker-compose.yml
+          yq eval -i '.services.rabbitmq.image = "ghcr.io/${{ toLower(github.repository_owner) }}/augur_rabbitmq:test"' docker-compose.yml
           yq eval -i '.services.rabbitmq.pull_policy = "never"' docker-compose.yml
           yq eval -i '.services.rabbitmq.restart = "no"' docker-compose.yml
 
@@ -206,7 +206,7 @@ jobs:
           containerfiles: |
             ./docker/database/Dockerfile
           platforms: linux/amd64
-          tags: ghcr.io/${{ github.repository_owner }}/augur_database:test
+          tags: ghcr.io/${{ toLower(github.repository_owner) }}/augur_database:test
           layers: true
 
       - name: Build keyman container
@@ -216,7 +216,7 @@ jobs:
           containerfiles: |
             ./docker/keyman/Dockerfile
           platforms: linux/amd64
-          tags: ghcr.io/${{ github.repository_owner }}/augur_keyman:test
+          tags: ghcr.io/${{ toLower(github.repository_owner) }}/augur_keyman:test
           layers: true
 
       - name: Build rabbitmq container
@@ -226,7 +226,7 @@ jobs:
           containerfiles: |
             ./docker/rabbitmq/Dockerfile
           platforms: linux/amd64
-          tags: ghcr.io/${{ github.repository_owner }}/augur_rabbitmq:test
+          tags: ghcr.io/${{ toLower(github.repository_owner) }}/augur_rabbitmq:test
           layers: true
 
       - name: Build backend container
@@ -236,24 +236,24 @@ jobs:
           containerfiles: |
             ./docker/backend/Dockerfile
           platforms: linux/amd64
-          tags: ghcr.io/${{ github.repository_owner }}/augur_backend:test
+          tags: ghcr.io/${{ toLower(github.repository_owner) }}/augur_backend:test
           layers: true
 
       - name: Prepare compose file
         run: |
-          yq eval -i '.services.augur.image = "ghcr.io/${{ github.repository_owner }}/augur_backend:test"' docker-compose.yml
+          yq eval -i '.services.augur.image = "ghcr.io/${{ toLower(github.repository_owner) }}/augur_backend:test"' docker-compose.yml
           yq eval -i '.services.augur.pull_policy = "never"' docker-compose.yml
           yq eval -i '.services.augur.restart = "no"' docker-compose.yml
 
-          yq eval -i '.services.augur-db.image = "ghcr.io/${{ github.repository_owner }}/augur_database:test"' docker-compose.yml
+          yq eval -i '.services.augur-db.image = "ghcr.io/${{ toLower(github.repository_owner) }}/augur_database:test"' docker-compose.yml
           yq eval -i '.services.augur-db.pull_policy = "never"' docker-compose.yml
           yq eval -i '.services.augur-db.restart = "no"' docker-compose.yml
 
-          yq eval -i '.services.augur-keyman.image = "ghcr.io/${{ github.repository_owner }}/augur_keyman:test"' docker-compose.yml
+          yq eval -i '.services.augur-keyman.image = "ghcr.io/${{ toLower(github.repository_owner) }}/augur_keyman:test"' docker-compose.yml
           yq eval -i '.services.augur-keyman.pull_policy = "never"' docker-compose.yml
           yq eval -i '.services.augur-keyman.restart = "no"' docker-compose.yml
 
-          yq eval -i '.services.rabbitmq.image = "ghcr.io/${{ github.repository_owner }}/augur_rabbitmq:test"' docker-compose.yml
+          yq eval -i '.services.rabbitmq.image = "ghcr.io/${{ toLower(github.repository_owner) }}/augur_rabbitmq:test"' docker-compose.yml
           yq eval -i '.services.rabbitmq.pull_policy = "never"' docker-compose.yml
           yq eval -i '.services.rabbitmq.restart = "no"' docker-compose.yml
 
@@ -329,7 +329,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ github.repository_owner }}
+          username: ${{ toLower(github.repository_owner) }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set container metadata
@@ -342,7 +342,7 @@ jobs:
             org.opencontainers.image.title=augur_${{ matrix.image}}
           labels: |
             org.opencontainers.image.title=augur_${{ matrix.image}}
-          images: ghcr.io/${{ github.repository_owner }}/augur_${{ matrix.image }}
+          images: ghcr.io/${{ toLower(github.repository_owner) }}/augur_${{ matrix.image }}
           # Pushes to the main branch update the *:devel-latest tag
           # Releases update the *:latest tag and the *:<version> tag
           tags: |
